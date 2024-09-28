@@ -1,12 +1,59 @@
 import { handleError } from "@/utils/errorHandler";
 import SchemaBuilder from "@pothos/core";
 import openMeteoApi from "@/lib/openMeteoApi";
-import { Weather, DailyWeather } from "@/types";
+import {
+  Weather,
+  DailyWeather,
+  CurrentUnits,
+  Current,
+  DailyUnits,
+} from "@/types";
 
 const builder = new SchemaBuilder<{}>({});
 
 const weatherRef = builder.objectRef<Weather>("Weather");
+const currentUnitRef = builder.objectRef<CurrentUnits>("CurrentUnits");
 const dailyWeatherRef = builder.objectRef<DailyWeather>("Daily");
+const currentRef = builder.objectRef<Current>("Current");
+const dailyUnitsRef = builder.objectRef<DailyUnits>("DailyUnits");
+
+dailyUnitsRef.implement({
+  description: "The units for the daily weather.",
+  fields: (t) => ({
+    time: t.exposeString("time"),
+    temperature_2m_max: t.exposeString("temperature_2m_max"),
+    temperature_2m_min: t.exposeString("temperature_2m_min"),
+    weather_code: t.exposeString("weather_code"),
+    sunrise: t.exposeString("sunrise"),
+    sunset: t.exposeString("sunset"),
+  }),
+});
+
+currentRef.implement({
+  description: "The current weather conditions.",
+  fields: (t) => ({
+    time: t.exposeString("time"),
+    interval: t.exposeInt("interval"),
+    precipitation_probability: t.exposeFloat("precipitation_probability"),
+    wind_gusts_10m: t.exposeFloat("temperature_2m"),
+    temperature_2m: t.exposeFloat("temperature_2m"),
+    relative_humidity_2m: t.exposeFloat("relative_humidity_2m"),
+    weather_code: t.exposeInt("weather_code"),
+  }),
+});
+
+currentUnitRef.implement({
+  description: "The units for the current weather.",
+  fields: (t) => ({
+    time: t.exposeString("time"),
+    interval: t.exposeString("interval"),
+    precipitation_probability: t.exposeString("precipitation_probability"),
+    wind_gusts_10m: t.exposeString("wind_gusts_10m"),
+    temperature_2m: t.exposeString("temperature_2m"),
+    relative_humidity_2m: t.exposeString("relative_humidity_2m"),
+    weather_code: t.exposeString("weather_code"),
+  }),
+});
 
 weatherRef.implement({
   description: "The weather for a given locations longitude and latitude",
@@ -21,6 +68,18 @@ weatherRef.implement({
     daily: t.field({
       type: dailyWeatherRef,
       resolve: (parent) => parent.daily,
+    }),
+    dailyUnits: t.field({
+      type: dailyUnitsRef,
+      resolve: (parent) => parent.daily_units,
+    }),
+    current: t.field({
+      type: currentRef,
+      resolve: (parent) => parent.current,
+    }),
+    currentUnits: t.field({
+      type: currentUnitRef,
+      resolve: (parent) => parent.current_units,
     }),
   }),
 });

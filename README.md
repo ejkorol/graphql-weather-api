@@ -2,7 +2,7 @@
 
 An Apollo GraphQL server written in TypeScript.
 
-This API utilizes the Pothos schema builder for type safety, Axios for requests, and the Open Meteo API for fetching weather data.
+This API utilizes the **Pothos** schema builder for type safety, **Axios** for requests, **Open Meteo** API for fetching weather data and **country-city-state** for geographical coordinates.
 
 Additionally, it utilizes [**country-city-state**](https://www.npmjs.com/package/country-state-city) to fetch city longitude and latitudes for ease of use.
 
@@ -18,6 +18,31 @@ Additionally, it utilizes [**country-city-state**](https://www.npmjs.com/package
 - [**Apollo GraphQL Server**](https://www.apollographql.com/)
 - [**Axios**](https://axios-http.com/)
 - [**country-city-state**](https://github.com/harpreetkhalsagtbit/country-state-city)
+
+## Architecture
+
+```bash
+.
+├── src/
+│   │  
+│   ├── graphql/
+│   │   │ 
+│   │   ├── schemas/     // pothos schemas
+│   │   └── server/      // apollo server instance
+│   │
+│   ├── lib/             // shared 3rd party libraries
+│   ├── types/           // typscript types
+│   ├── utils/           // utils and helper functions
+│   │  
+│   └── index.ts         // entry point
+│ 
+├── .gitignore
+├── .env.sample
+├── .env
+├── README.md
+├── nodemon.json
+└── tsconfig.json
+```
 
 ## Installation
 

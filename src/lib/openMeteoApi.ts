@@ -38,7 +38,6 @@ class OpenMeteoApi {
             "temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset",
         },
       });
-      console.log(res.data);
       return res.data;
     } catch (e) {
       throw new Error(`Error fetching from Open Meteo: ${e}`);

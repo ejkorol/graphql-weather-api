@@ -31,10 +31,14 @@ class OpenMeteoApi {
         params: {
           latitude,
           longitude,
+          current: [
+            "precipitation_probability,wind_gusts_10m,temperature_2m,relative_humidity_2m,weather_code",
+          ],
           daily:
             "temperature_2m_max,temperature_2m_min,weather_code,sunrise,sunset",
         },
       });
+      console.log(res.data);
       return res.data;
     } catch (e) {
       throw new Error(`Error fetching from Open Meteo: ${e}`);

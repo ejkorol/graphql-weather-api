@@ -35,7 +35,7 @@ currentRef.implement({
     time: t.exposeString("time"),
     interval: t.exposeInt("interval"),
     precipitation_probability: t.exposeFloat("precipitation_probability"),
-    wind_gusts_10m: t.exposeFloat("temperature_2m"),
+    wind_gusts_10m: t.exposeFloat("wind_gusts_10m"),
     temperature_2m: t.exposeFloat("temperature_2m"),
     relative_humidity_2m: t.exposeFloat("relative_humidity_2m"),
     weather_code: t.exposeInt("weather_code"),
